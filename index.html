@@ -576,7 +576,7 @@
 <div class="container">
   <!-- Header -->
   <div class="header">
-    <h1>AI视频广告生成工具</h1>
+    <h1>智能广告投放工作流</h1>
     <p>素材解析 → 剧集匹配 → 创意生成,一站式完成场景化广告投放</p>
   </div>
 
@@ -1023,8 +1023,9 @@ async function goToStep3() {
 // API 配置:对接生产环境时,把 USE_MOCK 改为 false,并填入 API_ENDPOINT
 const API_CONFIG = {
   USE_MOCK: false,                                // ← 接入真实接口时改为 false
-  API_ENDPOINT: '/api/run',                       // ← 改为相对路径，由 Netlify 代理转发
-  AUTH_TOKEN: 'cztei_h9teN6PYi7qoUh5QjW1DSk54NTTrdFZtRF4I9TzSWG1lhvbpNNb3mWvQijEow3hFJ' // ← Token（不含 Bearer 前缀）
+  API_ENDPOINT: '/api/v1/workflow/stream_run',    // ← Coze 官方 API 路径
+  AUTH_TOKEN: 'cztei_lRORAZXDCTjkKOjl74fs5GTFv825MX8CrefC42BfMBFgBwdwNd1dgsMogS08l39lQ', // ← Token（不含 Bearer 前缀）
+  WORKFLOW_ID: '7636603529868230702'             // ← 您的工作流 ID
 };
 
 async function callWorkflow() {
@@ -1040,10 +1041,16 @@ async function callWorkflow() {
     const headers = { 'Content-Type': 'application/json' };
     if (API_CONFIG.AUTH_TOKEN) headers['Authorization'] = 'Bearer ' + API_CONFIG.AUTH_TOKEN;
 
+    // Coze API 需要的格式
+    const cozePayload = {
+      workflow_id: API_CONFIG.WORKFLOW_ID,
+      parameters: payload  // 把原来的参数放在 parameters 里
+    };
+
     const res = await fetch(API_CONFIG.API_ENDPOINT, {
       method: 'POST',
       headers: headers,
-      body: JSON.stringify(payload)
+      body: JSON.stringify(cozePayload)
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const raw = await res.json();
