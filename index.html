@@ -1023,8 +1023,8 @@ async function goToStep3() {
 // API 配置:对接生产环境时,把 USE_MOCK 改为 false,并填入 API_ENDPOINT
 const API_CONFIG = {
   USE_MOCK: false,                                // ← 接入真实接口时改为 false
-  API_ENDPOINT: 'https://cors-anywhere.herokuapp.com/https://ncv85cdqw5.coze.site/run', // ← 添加 CORS 代理
-  AUTH_TOKEN: ''                                 // ← 通过代理访问时不需要 Token
+  API_ENDPOINT: '/api/run', // ← 添加 CORS 代理
+  AUTH_TOKEN: 'Bearer cztei_h9teN6PYi7qoUh5QjW1DSk54NTTrdFZtRF4I9TzSWG1lhvbpNNb3mWvQijEow3hFJ'                                 // ← 通过代理访问时不需要 Token
 };
 
 async function callWorkflow() {
