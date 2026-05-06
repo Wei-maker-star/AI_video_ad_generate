@@ -1,8 +1,9 @@
 [[redirects]]
   from = "/api/*"
-  to = "https://ncv85cdqw5.coze.site/:splat"
+  to = "https://api.coze.cn/:splat"
   status = 200
   force = true
+  headers = {Authorization = ":preserve"}
 
 [[headers]]
   for = "/api/*"
